@@ -47,19 +47,60 @@ namespace z2.Tests
                 telefon.AddContact("Osoba" + i, "111222333");
             }
         }
-        
+
+
+        [Test]
+        public void AddContact_NowyKontakt_DodajePrawidlowo()
+        {
+            var telefon = new Phone("Jan", "123456789");
+            bool wynik = telefon.AddContact("Anna", "987654321");
+
+            Assert.That(wynik, Is.True);
+            Assert.That(telefon.Count, Is.EqualTo(1));
         }
+
+
+
+
+
+        [Test]
+        public void AddContact_IstniejacyKontakt_ZwracaFalse()
+        {
+            var telefon = new Phone("Jan", "123456789");
+            telefon.AddContact("Anna", "987654321");
+
+            // Próba dodania drugiego kontaktu o tym samym imieniu
+            bool wynik = telefon.AddContact("Anna", "111222333");
+
+            Assert.That(wynik, Is.False);
+            Assert.That(telefon.Count, Is.EqualTo(1)); // Ilość nie powinna wzrosnąć
+        }
+
+        [Test]
+        public void Call_IstniejacyKontakt_ZwracaKomunikat()
+        {
+            var telefon = new Phone("Jan", "123456789");
+            telefon.AddContact("Anna", "987654321");
+
+            string wynik = telefon.Call("Anna");
+
+            Assert.That(wynik, Is.EqualTo("Calling 987654321 (Anna) ..."));
+        }
+
+        [Test]
+        public void Call_BrakKontaktu_ZglaszaWyjatek()
+        {
+            var telefon = new Phone("Jan", "123456789");
+
+            Assert.Throws<InvalidOperationException>(() => telefon.Call("KtosKogoNieMa"));
+
+
+
+
+        }
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
