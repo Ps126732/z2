@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace z2;
+namespace z2
 {
     public class Phone
     {
@@ -26,7 +26,7 @@ namespace z2;
             private set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Owner name is empty or null!");
+                    throw new ArgumentException("Owner name is empty or null!");
 
                 owner = value;
             }
@@ -41,10 +41,10 @@ namespace z2;
             private set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Phone number is empty or null!");
+                    throw new ArgumentException("Phone number is empty or null!");
 
                 if (!IsCorrectPhoneNumber(value))
-                    throw new ArgumentException($"Invalid phone number!");
+                    throw new ArgumentException("Invalid phone number!");
 
                 phoneNumber = value;
             }
